@@ -81,7 +81,7 @@ Relationships
 
 One of the main features of JSON API and Katharsis is support of managing relations between resources. To achieve that, two steps are required:
 
-* Add a field annotated with JsonApiToOne or JsonApiToMany (depending on multiplicity of the relation) which will represent a unidirectional relation.
+* Add a field annotated with JsonApiRelation, JsonApiToOne (deprecated) or JsonApiToMany (deprecated)(depending on multiplicity of the relation) which will represent a unidirectional relation.
 * Add a repository which defines operations that can be made on models.
 
 
@@ -315,7 +315,7 @@ implementation can then look as simple as:
 RelationshipRepositoryV2
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Each relationship defined in Katharsis (annotation @JsonApiToOne and @JsonApiToMany) must have a relationship repository defined.
+Each relationship defined in Katharsis (annotation @JsonApiRelation, @JsonApiToOne and @JsonApiToMany ) must have a relationship repository defined.
 
 Base unidirectional repository responsible for operations on relations.
 All of the methods in this interface have fieldName field as their last parameter to solve the problem of many relationships between the same resources.
@@ -368,7 +368,7 @@ For this to work, relations must be set up bidirectionally with the ``opposite``
 	@JsonApiResource(type = "tasks")
 	public class Task {
 	
-		@JsonApiToOne(opposite = "tasks")
+		@JsonApiRelation(opposite = "tasks")
 		@JsonApiIncludeByDefault
 		private Project project;
 	
